@@ -16,18 +16,16 @@ public class UserFileDao : IUserDao
     {
         _context.Users?.Add(user);
         _context.SaveChanges();
-        Console.WriteLine("UserFileDaoContextUsers" + _context.Users +"SSSS");
         return Task.FromResult(user);
     }
 
     public Task<User?> GetByUsernameAsync(string username)
     {
-        ICollection<User>? users =  _context.Users;
+        ICollection<User>? users = _context.Users;
 
-        User? user =  users?.FirstOrDefault(e => e.Username.Equals(username));
+        User? user = users?.FirstOrDefault(e => e.Username.Equals(username));
 
         return Task.FromResult(user);
-
     }
 
     public Task<IEnumerable<User>?> GetUsersByUsernameAsync(string username)

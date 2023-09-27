@@ -16,8 +16,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<FileContext>();
 builder.Services.AddScoped<IUserDao, UserFileDao>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
-builder.Services.AddScoped<IPostDao,PostFileDao>();
+builder.Services.AddScoped<IPostDao, PostFileDao>();
 builder.Services.AddScoped<IPostLogic, PostLogic>();
+builder.Services.AddScoped<ISubforumDao, SubforumFileDao>();
+builder.Services.AddScoped<ISubforumLogic, SubforumLogic>();
 
 var app = builder.Build();
 

@@ -10,12 +10,12 @@ public class PostFileDao : IPostDao
     public PostFileDao(FileContext context)
     {
         _context = context;
-    } 
-    
+    }
+
     public Task<Post> CreatePostAsync(Post post)
     {
         int postId = 1;
-        
+
         if (_context.Posts != null && _context.Posts.Any())
         {
             postId = _context.Posts.Max(u => u.Id);
@@ -23,8 +23,8 @@ public class PostFileDao : IPostDao
         }
 
         post.Id = postId;
-       _context.Posts?.Add(post);
-       _context.SaveChanges();
-       return Task.FromResult(post);
+        _context.Posts?.Add(post);
+        _context.SaveChanges();
+        return Task.FromResult(post);
     }
 }

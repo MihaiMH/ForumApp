@@ -6,5 +6,36 @@
       "Password": "string"
     }
   ],
-  "Posts": null
+  "Posts": [
+    {
+      "Id": 1,
+      "Subforum": {
+        "Id": 1,
+        "Title": "rrrrwosh",
+        "Owner": {
+          "Username": "mihai",
+          "Email": "crut173@gmail.com",
+          "Password": "string"
+        }
+      },
+      "Title": "My first post",
+      "Context": "Hi. This is my first post",
+      "Author": {
+        "Username": "mihai",
+        "Email": "crut173@gmail.com",
+        "Password": "string"
+      }
+    }
+  ],
+  "Subforums": [
+    {
+      "Id": 1,
+      "Title": "rrrrwosh",
+      "Owner": {
+        "Username": "mihai",
+        "Email": "crut173@gmail.com",
+        "Password": "string"
+      }
+    }
+  ]
 }
