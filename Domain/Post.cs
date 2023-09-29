@@ -18,4 +18,5 @@ public class Post
         Context = context;
         Author = author;
     }
+    
 }

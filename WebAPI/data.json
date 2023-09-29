@@ -37,5 +37,35 @@
         "Password": "string"
       }
     }
+  ],
+  "Comments": [
+    {
+      "Id": 1,
+      "User": {
+        "Username": "mihai",
+        "Email": "crut173@gmail.com",
+        "Password": "string"
+      },
+      "Context": "Yoooo wasssup",
+      "Post": {
+        "Id": 1,
+        "Subforum": {
+          "Id": 1,
+          "Title": "rrrrwosh",
+          "Owner": {
+            "Username": "mihai",
+            "Email": "crut173@gmail.com",
+            "Password": "string"
+          }
+        },
+        "Title": "My first post",
+        "Context": "Hi. This is my first post",
+        "Author": {
+          "Username": "mihai",
+          "Email": "crut173@gmail.com",
+          "Password": "string"
+        }
+      }
+    }
   ]
 }

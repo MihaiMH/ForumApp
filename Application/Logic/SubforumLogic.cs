@@ -30,6 +30,11 @@ public class SubforumLogic : ISubforumLogic
         return created;
     }
 
+    public async Task<ICollection<Subforum>?> GetSubForumsAsync()
+    {
+        return await _subforumDao.GetSubForums();
+    }
+
     public static void ValidateData(SubforumDto subforumDto)
     {
         string title = subforumDto.Title;

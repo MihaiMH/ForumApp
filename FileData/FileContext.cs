@@ -36,6 +36,15 @@ public class FileContext
             return dataContainer?.Subforums;
         }
     }
+    
+    public ICollection<Comment>? Comments
+    {
+        get
+        {
+            LazyLoadData();
+            return dataContainer?.Comments;
+        }
+    }
 
     private void LazyLoadData()
     {
@@ -55,7 +64,8 @@ public class FileContext
             {
                 Users = new List<User>(),
                 Posts = new List<Post>(),
-                Subforums = new List<Subforum>()
+                Subforums = new List<Subforum>(),
+                Comments = new List<Comment>()
             };
             return;
         }
@@ -66,8 +76,6 @@ public class FileContext
 
     public void SaveChanges()
     {
-        Console.WriteLine("FileContextUsers" + Users + "SSSSSS");
-        Console.WriteLine("FileContextDataContainerUsers " + dataContainer + "SSSSSSS");
         string serialized = JsonSerializer.Serialize(dataContainer, new JsonSerializerOptions
         {
             WriteIndented = true

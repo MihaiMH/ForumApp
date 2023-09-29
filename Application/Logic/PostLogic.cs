@@ -14,12 +14,18 @@ public class PostLogic : IPostLogic
         _postDao = postDao;
     }
 
-    public async Task<Post> CreatePost(PostDto postDto)
+    public async Task<Post> CreatePostAsync(PostDto postDto)
     {
         ValidateData(postDto);
         Post toCreate = new Post(postDto.Title, postDto.Subforum, postDto.Context, postDto.Author);
+        toCreate.Id = postDto.Id;
         Post created = await _postDao.CreatePostAsync(toCreate);
         return created;
+    }
+
+    public async Task<IEnumerable<Post>?> GetPostsBySubForumAsync(int subForumId)
+    {
+        return await _postDao.GetPostsBySubForumAsync(subForumId);
     }
 
     public static void ValidateData(PostDto postDto)

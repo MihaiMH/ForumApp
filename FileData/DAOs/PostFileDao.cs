@@ -27,4 +27,11 @@ public class PostFileDao : IPostDao
         _context.SaveChanges();
         return Task.FromResult(post);
     }
+
+    public Task<IEnumerable<Post>?> GetPostsBySubForumAsync(int subForumId)
+    {
+        ICollection<Post>? posts = _context.Posts;
+        IEnumerable<Post>? found = posts?.Where(e => e.Subforum.Id == subForumId);
+        return Task.FromResult(found);
+    }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using Application.Logic;
 using Application.LogicInterfaces;
 using Domain;
@@ -22,9 +23,24 @@ public class PostController : ControllerBase
     {
         try
         {
-            Post post = await postLogic.CreatePost(dto);
+            Post post = await postLogic.CreatePostAsync(dto);
 
             return Created($"/posts/{post.Id}", post);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Post>>> GetPostsBySubForumAsync([FromQuery] int subForumId)
+    {
+        try
+        {
+            IEnumerable<Post>? posts = await postLogic.GetPostsBySubForumAsync(subForumId);
+            return Created($"/subforums/{subForumId}/posts", posts);
         }
         catch (Exception e)
         {

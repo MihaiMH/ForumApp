@@ -1,3 +1,4 @@
+using Application.DaoInterfaces;
 using Application.LogicInterfaces;
 using Domain;
 using Domain.DTOs;
@@ -24,6 +25,21 @@ public class SubforumController : ControllerBase
         {
             Subforum subforum = await _subforumLogic.CreateAsync(dto);
             return Created($"/subforums/{subforum.Id}", subforum);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet]
+    public async Task<ActionResult<ICollection<Subforum>>> GetSubForumsAsync()
+    {
+        try
+        {
+            ICollection<Subforum> subforums = await _subforumLogic.GetSubForumsAsync();
+            return Created($"/subforums/", subforums);
         }
         catch (Exception e)
         {

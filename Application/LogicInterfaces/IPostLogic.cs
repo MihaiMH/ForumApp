@@ -5,5 +5,6 @@ namespace Application.LogicInterfaces;
 
 public interface IPostLogic
 {
-    Task<Post> CreatePost(PostDto postDto);
+    Task<Post> CreatePostAsync(PostDto postDto);
+    Task<IEnumerable<Post>?> GetPostsBySubForumAsync(int subForumId);
 }

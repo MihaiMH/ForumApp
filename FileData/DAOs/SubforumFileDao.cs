@@ -30,6 +30,11 @@ public class SubforumFileDao : ISubforumDao
         return Task.FromResult(subforum);
     }
 
+    public Task<ICollection<Subforum>?> GetSubForums()
+    {
+        return Task.FromResult(_context.Subforums);
+    }
+
     public Task<Subforum?> GetByTitleAsync(string title)
     {
         ICollection<Subforum>? subforums = _context.Subforums;
