@@ -47,4 +47,39 @@ public class CommentController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+
+    [HttpPatch]
+    public async Task<ActionResult<Comment>> UpdateComment(UpdateCommentDto dto)
+    {
+        try
+        {
+            Comment comment = await commentLogic.UpdateComment(dto);
+            return Created($"/posts/{dto.PostId}/comments/{dto.OldCommentId}", comment);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    [HttpDelete]
+    public async Task<ActionResult> DeleteComment(int commentId)
+    {
+        try
+        {
+            bool ok = await commentLogic.DeleteComment(commentId);
+            if (ok)
+            {
+                return Ok();
+            }
+
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
 }

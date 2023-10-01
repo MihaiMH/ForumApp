@@ -27,9 +27,35 @@ public class CommentLogic : ICommentLogic
         return _commentDao.GetCommentsByPost(postId);
     }
 
+    public Task<Comment> UpdateComment(UpdateCommentDto updateCommentDto)
+    {
+        ValidateData(updateCommentDto);
+        return _commentDao.UpdateComment(updateCommentDto.OldCommentId, updateCommentDto.NewContext);
+    }
+
+    public Task<bool> DeleteComment(int commentId)
+    {
+        return _commentDao.DeleteComment(commentId);
+    }
+
     public static void ValidateData(CommentDto commentDto)
     {
         string context = commentDto.Context;
+
+        if (string.IsNullOrWhiteSpace(context))
+        {
+            throw new Exception("Comment can't be empty or only with white spaces");
+        }
+
+        if (context.Length > 100)
+        {
+            throw new Exception("Comment can be maximum 100 characters length");
+        }
+    }
+    
+    public static void ValidateData(UpdateCommentDto commentDto)
+    {
+        string context = commentDto.NewContext;
 
         if (string.IsNullOrWhiteSpace(context))
         {
