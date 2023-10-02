@@ -22,20 +22,20 @@ public class CommentLogic : ICommentLogic
         return created;
     }
 
-    public Task<IEnumerable<Comment>?> GetCommentsByPost(int postId)
+    public async Task<IEnumerable<Comment>?> GetCommentsByPost(int postId)
     {
-        return _commentDao.GetCommentsByPost(postId);
+        return await _commentDao.GetCommentsByPost(postId);
     }
 
-    public Task<Comment> UpdateComment(UpdateCommentDto updateCommentDto)
+    public async Task<Comment> UpdateComment(UpdateCommentDto updateCommentDto)
     {
         ValidateData(updateCommentDto);
-        return _commentDao.UpdateComment(updateCommentDto.OldCommentId, updateCommentDto.NewContext);
+        return  await _commentDao.UpdateComment(updateCommentDto.OldCommentId, updateCommentDto.NewContext);
     }
 
-    public Task<bool> DeleteComment(int commentId)
+    public async Task<bool> DeleteComment(int commentId)
     {
-        return _commentDao.DeleteComment(commentId);
+        return await _commentDao.DeleteComment(commentId);
     }
 
     public static void ValidateData(CommentDto commentDto)

@@ -18,8 +18,8 @@
           "Password": "string"
         }
       },
-      "Title": "My first post",
-      "Context": "Hi. This is my first post",
+      "Title": "My First Post Again",
+      "Context": "Hello world. This is my first post!",
       "Author": {
         "Username": "mihai",
         "Email": "crut173@gmail.com",

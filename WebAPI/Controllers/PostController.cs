@@ -48,4 +48,39 @@ public class PostController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+
+    [HttpPatch]
+    public async Task<ActionResult<Post>> UpdatePostAsync(PostUpdateDto dto)
+    {
+        try
+        {
+            Post post = await postLogic.UpdatePostAsync(dto);
+            return Created($"/subforums/{dto.SubForumId}/posts/{dto.Id}", post);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpDelete]
+    public async Task<ActionResult> DeleteComment(int postId)
+    {
+        try
+        {
+            bool ok = await postLogic.DeletePostAsync(postId);
+            if (ok)
+            {
+                return Ok();
+            }
+
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
 }
