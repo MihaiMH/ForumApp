@@ -65,7 +65,23 @@ public class PostController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    
+
+    [HttpGet]
+    [Route("/GetPostsByUser")]
+    public async Task<ActionResult<IEnumerable<Post>>> GetPostByUser([FromQuery] string userName)
+    {
+        try
+        {
+            IEnumerable<Post>? posts = await postLogic.GetPostsByUser(userName);
+            return Created($"/user/{userName}/posts", posts);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+
     [HttpPatch]
     public async Task<ActionResult<Post>> UpdatePostAsync(PostUpdateDto dto)
     {
@@ -80,7 +96,7 @@ public class PostController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    
+
     [HttpDelete]
     public async Task<ActionResult> DeleteComment(int postId)
     {

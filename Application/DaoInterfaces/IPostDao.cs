@@ -9,4 +9,5 @@ public interface IPostDao
     Task<Post> UpdatePostAsync(int postId, string title, string context);
     Task<bool> DeletePostAsync(int postId);
     Task<Post?> GetPostByIdAsync(int postId);
+    Task<IEnumerable<Post>?> GetPostsByUser(string userName);
 }

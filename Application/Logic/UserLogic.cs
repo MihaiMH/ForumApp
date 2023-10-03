@@ -48,6 +48,16 @@ public class UserLogic : IUserLogic
         return null;
     }
 
+    public async Task<User?> GetByUsernameAsync(string username)
+    {
+        return await _userDao.GetByUsernameAsync(username);
+    }
+
+    public async Task<IEnumerable<User>?> GetAllUsers()
+    {
+        return await _userDao.GetAllUsers();
+    }
+
 
     private static void ValidateData(UserCreationDto userToCreate)
     {

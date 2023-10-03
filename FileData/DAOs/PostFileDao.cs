@@ -68,4 +68,11 @@ public class PostFileDao : IPostDao
         Post? post = _context.Posts?.FirstOrDefault(e => e.Id ==postId);
         return Task.FromResult(post);
     }
+
+    public Task<IEnumerable<Post>?> GetPostsByUser(string userName)
+    {
+        ICollection<Post>? posts = _context.Posts;
+        IEnumerable<Post>? found = posts?.Where(e => e.Author.Username.Equals(userName));
+        return Task.FromResult(found);
+    }
 }

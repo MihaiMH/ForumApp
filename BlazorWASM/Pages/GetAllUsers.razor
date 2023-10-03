@@ -1,0 +1,56 @@
+@page "/users"
+@using HttpClients.ClientInterfaces
+@using HttpClients.Implementations
+@using Domain.DTOs
+@using Domain
+@inject IUserService userService;
+
+<h3>Users</h3>
+@if (!string.IsNullOrEmpty(msg))
+{
+    <div>
+        <span>@msg</span>
+    </div>
+}
+
+@if (users == null)
+{
+    <span>Loading..</span>
+}
+else if (!users.Any())
+{
+    <span>No users to be found</span>
+}
+else
+{
+    <div class="users-container">
+        @foreach (User user in users)
+        {
+            <div class="user-card">
+                <NavLink class="nav-link" href="@($"users/{user.Username}")" Match="NavLinkMatch.All">
+                    <label class="user-card-author">@user.Username</label>
+                </NavLink>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private IEnumerable<User>? users;
+    private string msg = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        try
+        {
+            users = await userService.GetAllUsers();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+}

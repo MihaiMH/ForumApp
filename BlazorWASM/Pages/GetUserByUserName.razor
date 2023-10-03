@@ -1,9 +1,9 @@
-@page "/subforums/{Id}/posts"
+@page "/users/{userName}"
 @using Domain
 @using HttpClients.ClientInterfaces
+@using System.Collections
 @inject IPostService postService;
-
-
+@inject IUserService userService;
 
 @if (!string.IsNullOrEmpty(msg))
 {
@@ -12,17 +12,26 @@
     </div>
 }
 
+@if (user == null)
+{
+    <span>Loading..</span>
+}
+else
+{
+    <h1>@user.Username</h1>
+    <h3>@user.Email</h3>                  
+}
+
 @if (posts == null)
 {
     <span>Loading..</span>
 }
 else if (!posts.Any())
 {
-    <span>No posts to be found</span>
+    <span>No posts by @user?.Username</span>
 }
 else
 {
-    <h3>@subForumTitle</h3>
     <div class="post-container">
         @foreach (Post post in posts)
         {
@@ -31,6 +40,7 @@ else
                 <NavLink class="nav-link" href="@($"users/{post.Author.Username}")" Match="NavLinkMatch.All">
                     <label class="post-card-author">by @post.Author.Username</label>
                 </NavLink>
+                
                 @if (post.Context.Length >= 15)
                 {
                     <label class="post-card-context">@post.Context.Substring(0, 14)...</label>
@@ -39,7 +49,7 @@ else
                 {
                     <label class="post-card-context">@post.Context</label>
                 }
-                <NavLink class="nav-link" href="@($"subforums/{Id}/posts/{post.Id}")" Match="NavLinkMatch.All">
+                <NavLink class="nav-link" href="@($"subforums/{post.Subforum.Id}/posts/{post.Id}")" Match="NavLinkMatch.All">
                     <button>Visit it</button>
                 </NavLink>
             </div>
@@ -50,19 +60,20 @@ else
 @code {
 
     [Parameter]
-    public string Id { get; set; }
+    public string userName { get; set; }
+
+    private string msg = "";
 
     private IEnumerable<Post>? posts;
-    private string msg = "";
-    private string subForumTitle = "";
+    private User? user;
 
     protected override async Task OnInitializedAsync()
     {
         msg = "";
         try
         {
-            posts = await postService.GetPostsBySubforumAsync(Id);
-            subForumTitle = posts.First().Subforum.Title;
+            user = await userService.GetUserByUserNameAsync(userName);
+            posts = await postService.GetPostsByUserAsync(userName);
         }
         catch (Exception e)
         {
@@ -70,5 +81,4 @@ else
             msg = e.Message;
         }
     }
-
 }

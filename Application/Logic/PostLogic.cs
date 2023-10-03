@@ -44,6 +44,11 @@ public class PostLogic : IPostLogic
         return await _postDao.GetPostByIdAsync(postId);
     }
 
+    public async Task<IEnumerable<Post>?> GetPostsByUser(string userName)
+    {
+        return await _postDao.GetPostsByUser(userName);
+    }
+
     public static void ValidateData(PostUpdateDto postDto)
     {
         string title = postDto.Title;

@@ -1,3 +1,4 @@
+using System.Collections;
 using Application.DaoInterfaces;
 using Domain;
 
@@ -33,5 +34,12 @@ public class UserFileDao : IUserDao
         ICollection<User>? users = _context.Users;
         IEnumerable<User>? foundUsers = users?.Where(e => e.Username.Equals(username));
         return Task.FromResult(foundUsers);
+    }
+
+    public Task<IEnumerable<User>?> GetAllUsers()
+    {
+        IEnumerable<User>? users = _context.Users;
+
+        return Task.FromResult(users);
     }
 }

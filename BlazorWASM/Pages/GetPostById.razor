@@ -21,7 +21,9 @@ else
 
     <div class="post-card">
         <label class="post-card-title">@post.Title</label>
-        <label class="post-card-author">by @post.Author.Username</label>
+        <NavLink class="nav-link" href="@($"users/{post.Author.Username}")" Match="NavLinkMatch.All">
+            <label class="post-card-author">by @post.Author.Username</label>
+        </NavLink>
         <label class="post-card-context">@post.Context</label>
     </div>
 

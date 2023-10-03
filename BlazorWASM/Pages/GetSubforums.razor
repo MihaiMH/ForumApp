@@ -27,10 +27,12 @@ else
         {
             <div class="subforum-card">
                 <label class="subforum-card-title">@subforum.Title</label>
-                <label class="subforum-card-author">by @subforum.Owner.Username</label>
-                
+                <NavLink class="nav-link" href="@($"users/{subforum.Owner.Username}")" Match="NavLinkMatch.All">
+                    <label class="subforum-card-author">by @subforum.Owner.Username</label>
+                </NavLink>
+
                 <NavLink class="nav-link" href="@($"subforums/{subforum.Id}/posts")" Match="NavLinkMatch.All">
-                     <button>Visit it</button>
+                    <button>Visit it</button>
                 </NavLink>
 
             </div>

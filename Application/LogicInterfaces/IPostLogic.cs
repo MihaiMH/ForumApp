@@ -10,4 +10,5 @@ public interface IPostLogic
     Task<Post> UpdatePostAsync(PostUpdateDto postUpdateDto);
     Task<bool> DeletePostAsync(int postId);
     Task<Post?> GetPostByIdAsync(int postId);
+    Task<IEnumerable<Post>?> GetPostsByUser(string userName);
 }
