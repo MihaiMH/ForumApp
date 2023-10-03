@@ -1,0 +1,82 @@
+@page "/subforums/{SubForumId:int}/posts/{PostId}"
+@using Domain
+@using HttpClients.ClientInterfaces
+@inject IPostService postService;
+@inject ICommentService commentService;
+
+@if (!string.IsNullOrEmpty(msg))
+{
+    <div>
+        <span>@msg</span>
+    </div>
+}
+
+@if (post == null)
+{
+    <span>Loading..</span>
+}
+else
+{
+    <h2>@post.Subforum.Title / @post.Title</h2>
+
+    <div class="post-card">
+        <label class="post-card-title">@post.Title</label>
+        <label class="post-card-author">by @post.Author.Username</label>
+        <label class="post-card-context">@post.Context</label>
+    </div>
+
+
+    <h4>Comments</h4>
+    if (comments == null)
+    {
+        <span>Loading comments...</span>
+    }
+    else if
+        (!comments.Any())
+    {
+        <span>No comments for this post</span>
+    }
+    else
+    {
+        <div class="comments-container">
+            @foreach (Comment comment in comments)
+            {
+                <div class="comment-card">
+                    <label class="comment-card-author">@comment.User.Username</label>
+                    <label class="comment-card-context">@comment.Context</label>
+                </div>
+            }
+        </div>
+    }
+}
+
+
+
+@code {
+
+    [Parameter]
+    public int SubForumId { get; set; }
+
+    [Parameter]
+    public string? PostId { get; set; }
+
+    private Post? post;
+    private IEnumerable<Comment>? comments;
+    private string msg = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        try
+        {
+            post = await postService.GetPostById(PostId);
+            comments = await commentService.GetCommentsByPostAsync(post.Id.ToString());
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+}

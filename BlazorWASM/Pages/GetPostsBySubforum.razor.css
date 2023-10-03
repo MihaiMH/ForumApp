@@ -1,0 +1,28 @@
+.post-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 5px lightblue;
+    border-radius: 5px;
+}
+
+.post-card {
+    display:flex;
+    flex-direction: column;
+    align-content:  center;
+    justify-content: center;
+    padding:5px;
+    border: 3px lightblue;
+    border-radius: 3px;
+}
+
+.post-card-title{
+    font-size:20px;
+    font-weight: bold;
+}
+
+.post-card button{
+    padding: 5px 10px;
+    border:2px lightblue;
+    border-radius:5px;
+}

@@ -1,0 +1,60 @@
+@page "/subforums"
+@using Domain
+@using HttpClients.ClientInterfaces
+@inject ISubforumService subForumService;
+
+<h3 style="text-align: center">Overview of all Subforums</h3>
+
+@if (!string.IsNullOrEmpty(msg))
+{
+    <div>
+        <span>@msg</span>
+    </div>
+}
+
+@if (subforums == null)
+{
+    <span>Loading..</span>
+}
+else if (!subforums.Any())
+{
+    <span>No subforums to be found</span>
+}
+else
+{
+    <div class="subforum-container">
+        @foreach (Subforum subforum in subforums)
+        {
+            <div class="subforum-card">
+                <label class="subforum-card-title">@subforum.Title</label>
+                <label class="subforum-card-author">by @subforum.Owner.Username</label>
+                
+                <NavLink class="nav-link" href="@($"subforums/{subforum.Id}/posts")" Match="NavLinkMatch.All">
+                     <button>Visit it</button>
+                </NavLink>
+
+            </div>
+        }
+    </div>
+}
+
+
+@code {
+    private IEnumerable<Subforum>? subforums;
+    private string msg = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        try
+        {
+            subforums = await subForumService.GetSubforumsAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+}

@@ -9,4 +9,5 @@ public interface IPostLogic
     Task<IEnumerable<Post>?> GetPostsBySubForumAsync(int subForumId);
     Task<Post> UpdatePostAsync(PostUpdateDto postUpdateDto);
     Task<bool> DeletePostAsync(int postId);
+    Task<Post?> GetPostByIdAsync(int postId);
 }

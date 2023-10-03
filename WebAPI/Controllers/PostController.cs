@@ -35,6 +35,7 @@ public class PostController : ControllerBase
     }
 
     [HttpGet]
+    [Route("/GetPostsBySubForum")]
     public async Task<ActionResult<IEnumerable<Post>>> GetPostsBySubForumAsync([FromQuery] int subForumId)
     {
         try
@@ -49,6 +50,22 @@ public class PostController : ControllerBase
         }
     }
 
+    [HttpGet]
+    [Route("/GetPostById")]
+    public async Task<ActionResult<IEnumerable<Post>>> GetPostById([FromQuery] int postId)
+    {
+        try
+        {
+            Post? post = await postLogic.GetPostByIdAsync(postId);
+            return Created($"/posts/{postId}", post);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
     [HttpPatch]
     public async Task<ActionResult<Post>> UpdatePostAsync(PostUpdateDto dto)
     {

@@ -39,6 +39,11 @@ public class PostLogic : IPostLogic
         return await _postDao.DeletePostAsync(postId);
     }
 
+    public async Task<Post?> GetPostByIdAsync(int postId)
+    {
+        return await _postDao.GetPostByIdAsync(postId);
+    }
+
     public static void ValidateData(PostUpdateDto postDto)
     {
         string title = postDto.Title;

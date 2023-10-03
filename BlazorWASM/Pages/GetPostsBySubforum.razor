@@ -1,0 +1,68 @@
+@page "/subforums/{Id}/posts"
+@using Domain
+@using HttpClients.ClientInterfaces
+@inject IPostService postService;
+
+
+
+@if (!string.IsNullOrEmpty(msg))
+{
+    <div>
+        <span>@msg</span>
+    </div>
+}
+
+@if (posts == null)
+{
+    <span>Loading..</span>
+}
+else if (!posts.Any())
+{
+    <span>No subforums to be found</span>
+}
+else
+{
+    <h3>@subForumTitle</h3>
+    <div class="post-container">
+        @foreach (Post post in posts)
+        {
+            <div class="post-card">
+                <label class="post-card-title">@post.Title</label>
+                <label class="post-card-author">by @post.Author.Username</label>
+                @if (post.Context.Length >= 15)
+                {
+                    <label class="post-card-context">@post.Context.Substring(0, 14)...</label>
+                }
+                else
+                {
+                    <label class="post-card-context">@post.Context</label>
+                }
+                <NavLink class="nav-link" href="@($"subforums/{Id}/posts/{post.Id}")" Match="NavLinkMatch.All">
+                    <button>Visit it</button>
+                </NavLink>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    [Parameter] public string Id { get; set; }
+    private IEnumerable<Post>? posts;
+    private string msg = "";
+    private string subForumTitle = "";
+    
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        try
+        {
+            posts = await postService.GetPostsBySubforumAsync(Id);
+            subForumTitle = posts.First().Subforum.Title;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+}

@@ -1,0 +1,8 @@
+using Domain;
+
+namespace HttpClients.ClientInterfaces;
+
+public interface ISubforumService
+{
+    Task<IEnumerable<Subforum>> GetSubforumsAsync(string? subForums = null);
+}

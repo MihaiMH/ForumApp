@@ -32,9 +32,8 @@ public class CommentController : ControllerBase
         }
     }
 
-    [HttpPost]
-    [Route("GetCommentsByPost")]
-    public async Task<ActionResult<IEnumerable<Comment>>> GetCommentsByPost(int postId)
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Comment>>> GetCommentsByPost([FromQuery] int postId)
     {
         try
         {

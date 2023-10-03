@@ -4,6 +4,16 @@
       "Username": "mihai",
       "Email": "crut173@gmail.com",
       "Password": "string"
+    },
+    {
+      "Username": "Miguel",
+      "Email": "miguel@gmail.com",
+      "Password": "misha123"
+    },
+    {
+      "Username": "Mihailus",
+      "Email": "misha123@mail.com",
+      "Password": "123456"
     }
   ],
   "Posts": [
