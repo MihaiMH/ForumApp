@@ -17,7 +17,10 @@ public class CommentLogic : ICommentLogic
     public async Task<Comment> CreateCommentAsync(CommentDto commentDto)
     {
         ValidateData(commentDto);
-        Comment toCreate = new Comment(commentDto.User, commentDto.Context, commentDto.Post);
+        User user = new User(commentDto.User, "", "");
+        Post post = new Post("", new Subforum("", new User("", "", "")), "", new User("", "", ""));
+        post.Id = commentDto.PostId;
+        Comment toCreate = new Comment(user, commentDto.Context, post);
         Comment created = await _commentDao.CreateCommentAsync(toCreate);
         return created;
     }

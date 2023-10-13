@@ -1,5 +1,7 @@
+using System.Net.Http.Json;
 using System.Text.Json;
 using Domain;
+using Domain.DTOs;
 using HttpClients.ClientInterfaces;
 
 namespace HttpClients.Implementations;
@@ -27,5 +29,23 @@ public class SubforumHttpClient : ISubforumService
         })!;
 
         return subforums;
+    }
+
+    public async Task<Subforum> CreateSubForumAsync(string title, string user)
+    {
+        SubforumDto subforumDto = new SubforumDto(-1, title, user);
+        HttpResponseMessage response = await client.PostAsJsonAsync("/Subforum", subforumDto);
+        string result = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(result);
+        }
+        
+        Subforum subforum = JsonSerializer.Deserialize<Subforum>(result, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+
+        return subforum;
     }
 }

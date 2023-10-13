@@ -8,4 +8,6 @@ public interface IPostService
     Task<Post> GetPostById(string postId);
 
     Task<IEnumerable<Post>> GetPostsByUserAsync(string userName);
+
+    Task<Post> CreatePostAsync(int subforumId, string title, string context, string userName);
 }

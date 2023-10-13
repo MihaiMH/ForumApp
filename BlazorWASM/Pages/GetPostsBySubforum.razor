@@ -47,6 +47,17 @@ else
     </div>
 }
 
+<AuthorizeView>
+    <Authorized>
+        <NavLink class="nav-link" href="@($"subforums/{Id}/CreatePost")" Match="NavLinkMatch.All">
+            <label>Create a post</label>
+        </NavLink>
+    </Authorized>
+    <NotAuthorized>
+        <p>You need to be logged in in order to create a post</p>
+    </NotAuthorized>
+</AuthorizeView>
+
 @code {
 
     [Parameter]

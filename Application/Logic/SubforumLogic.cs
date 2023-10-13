@@ -24,7 +24,9 @@ public class SubforumLogic : ISubforumLogic
 
         ValidateData(subforumDto);
 
-        Subforum toCreate = new Subforum(subforumDto.Title, subforumDto.Owner);
+        User user = new User(subforumDto.Owner, "", "");
+        
+        Subforum toCreate = new Subforum(subforumDto.Title, user);
 
         Subforum created = await _subforumDao.CreateAsync(toCreate);
         return created;

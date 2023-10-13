@@ -3,14 +3,14 @@ namespace Domain.DTOs;
 public class CommentDto
 {
     public int Id { get; set; }
-    public User User { get; set; }
+    public string User { get; set; }
     public string Context { get; set; }
-    public Post Post { get; set; }
+    public int PostId { get; set; }
 
-    public CommentDto(User user, string context, Post post)
+    public CommentDto(string user, string context, int postId)
     {
         User = user;
         Context = context;
-        Post = post;
+        PostId = postId;
     }
 }

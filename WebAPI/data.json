@@ -35,12 +35,68 @@
         "Email": "crut173@gmail.com",
         "Password": "string"
       }
+    },
+    {
+      "Id": 2,
+      "Subforum": {
+        "Id": 2,
+        "Title": "subforumnr2",
+        "Owner": {
+          "Username": "mihai",
+          "Email": "crut173@gmail.com",
+          "Password": "string"
+        }
+      },
+      "Title": "My new post in a new subforum",
+      "Context": "Hiiii, this is my new post in this subforum",
+      "Author": {
+        "Username": "mihai",
+        "Email": "crut173@gmail.com",
+        "Password": "string"
+      }
+    },
+    {
+      "Id": 3,
+      "Subforum": {
+        "Id": 1,
+        "Title": "rrrrwosh",
+        "Owner": {
+          "Username": "mihai",
+          "Email": "crut173@gmail.com",
+          "Password": "string"
+        }
+      },
+      "Title": "Wassup",
+      "Context": "Hi, how are you?",
+      "Author": {
+        "Username": "mihai",
+        "Email": "crut173@gmail.com",
+        "Password": "string"
+      }
     }
   ],
   "Subforums": [
     {
       "Id": 1,
       "Title": "rrrrwosh",
+      "Owner": {
+        "Username": "mihai",
+        "Email": "crut173@gmail.com",
+        "Password": "string"
+      }
+    },
+    {
+      "Id": 2,
+      "Title": "subforumnr2",
+      "Owner": {
+        "Username": "mihai",
+        "Email": "crut173@gmail.com",
+        "Password": "string"
+      }
+    },
+    {
+      "Id": 3,
+      "Title": "subforum3",
       "Owner": {
         "Username": "mihai",
         "Email": "crut173@gmail.com",
@@ -70,6 +126,118 @@
         },
         "Title": "My first post",
         "Context": "Hi. This is my first post",
+        "Author": {
+          "Username": "mihai",
+          "Email": "crut173@gmail.com",
+          "Password": "string"
+        }
+      }
+    },
+    {
+      "Id": 2,
+      "User": {
+        "Username": "mihai",
+        "Email": "crut173@gmail.com",
+        "Password": "string"
+      },
+      "Context": "hi",
+      "Post": {
+        "Id": 2,
+        "Subforum": {
+          "Id": 2,
+          "Title": "subforumnr2",
+          "Owner": {
+            "Username": "mihai",
+            "Email": "crut173@gmail.com",
+            "Password": "string"
+          }
+        },
+        "Title": "My new post in a new subforum",
+        "Context": "Hiiii, this is my new post in this subforum",
+        "Author": {
+          "Username": "mihai",
+          "Email": "crut173@gmail.com",
+          "Password": "string"
+        }
+      }
+    },
+    {
+      "Id": 3,
+      "User": {
+        "Username": "mihai",
+        "Email": "crut173@gmail.com",
+        "Password": "string"
+      },
+      "Context": "hi",
+      "Post": {
+        "Id": 2,
+        "Subforum": {
+          "Id": 2,
+          "Title": "subforumnr2",
+          "Owner": {
+            "Username": "mihai",
+            "Email": "crut173@gmail.com",
+            "Password": "string"
+          }
+        },
+        "Title": "My new post in a new subforum",
+        "Context": "Hiiii, this is my new post in this subforum",
+        "Author": {
+          "Username": "mihai",
+          "Email": "crut173@gmail.com",
+          "Password": "string"
+        }
+      }
+    },
+    {
+      "Id": 4,
+      "User": {
+        "Username": "mihai",
+        "Email": "crut173@gmail.com",
+        "Password": "string"
+      },
+      "Context": "hi",
+      "Post": {
+        "Id": 2,
+        "Subforum": {
+          "Id": 2,
+          "Title": "subforumnr2",
+          "Owner": {
+            "Username": "mihai",
+            "Email": "crut173@gmail.com",
+            "Password": "string"
+          }
+        },
+        "Title": "My new post in a new subforum",
+        "Context": "Hiiii, this is my new post in this subforum",
+        "Author": {
+          "Username": "mihai",
+          "Email": "crut173@gmail.com",
+          "Password": "string"
+        }
+      }
+    },
+    {
+      "Id": 5,
+      "User": {
+        "Username": "mihai",
+        "Email": "crut173@gmail.com",
+        "Password": "string"
+      },
+      "Context": "hy",
+      "Post": {
+        "Id": 2,
+        "Subforum": {
+          "Id": 2,
+          "Title": "subforumnr2",
+          "Owner": {
+            "Username": "mihai",
+            "Email": "crut173@gmail.com",
+            "Password": "string"
+          }
+        },
+        "Title": "My new post in a new subforum",
+        "Context": "Hiiii, this is my new post in this subforum",
         "Author": {
           "Username": "mihai",
           "Email": "crut173@gmail.com",

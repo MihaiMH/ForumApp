@@ -30,10 +30,12 @@ public class JwtAuthService : IAuthService
         {
             throw new Exception(responseContent);
         }
-
+        
+        
         string token = responseContent;
+        Console.WriteLine(token);
         Jwt = token;
-
+        
         ClaimsPrincipal principal = CreateClaimsPrincipal();
 
         OnAuthStateChanged.Invoke(principal);

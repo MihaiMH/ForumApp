@@ -14,6 +14,12 @@ public class CommentFileDao : ICommentDao
 
     public Task<Comment> CreateCommentAsync(Comment comment)
     {
+        User? user = _context.Users?.FirstOrDefault(u => u.Username.Equals(comment.User.Username));
+        Post? post = _context.Posts?.FirstOrDefault(p => p.Id == comment.Post.Id);
+
+        comment.User = user;
+        comment.Post = post;
+        
         int commentId = 1;
 
         if (_context.Comments != null && _context.Comments.Any())

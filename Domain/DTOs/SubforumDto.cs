@@ -4,9 +4,9 @@ public class SubforumDto
 {
     public int Id { get; }
     public string Title { get; }
-    public User Owner { get; }
+    public string Owner { get; }
 
-    public SubforumDto(int id, string title, User owner)
+    public SubforumDto(int id, string title, string owner)
     {
         Id = id;
         Title = title;

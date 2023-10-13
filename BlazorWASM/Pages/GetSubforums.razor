@@ -1,7 +1,11 @@
 @page "/subforums"
 @using Domain
 @using HttpClients.ClientInterfaces
+@using System.Security.Claims
+@using BlazorWasm.Services
+@using Domain.DTOs
 @inject ISubforumService subForumService;
+@inject NavigationManager navMgr
 
 <h3 style="text-align: center">Overview of all Subforums</h3>
 
@@ -40,10 +44,52 @@ else
     </div>
 }
 
+<AuthorizeView>
+    <NotAuthorized>
+        <p>Log In in order to create subforums</p>
+    </NotAuthorized>
+    <Authorized>
+        <div class="createSubForumSection">
+            <p>Create your own subforum!</p>
+            <input type="text" @bind="title"/>
+            <div class="button-row">
+                <button @onclick="CreateSubForumAsync" disabled="@(string.IsNullOrEmpty(title))" class="createbtn">Create</button>
+            </div>
+        </div>
+    </Authorized>
+</AuthorizeView>
+
 
 @code {
     private IEnumerable<Subforum>? subforums;
     private string msg = "";
+
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = null!;
+
+    private string? name;
+    private IEnumerable<Claim>? userClaims;
+    private bool isLoggedIn;
+
+    private string? title;
+
+    private async Task CreateSubForumAsync()
+    {
+        msg = "";
+        try
+        {
+            Subforum subforum = await subForumService.CreateSubForumAsync(title, name);
+            if (subforum.Id != -1)
+            {
+                navMgr.NavigateTo($"subforums/{subforum.Id}/posts");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -57,6 +103,13 @@ else
             Console.WriteLine(e);
             msg = e.Message;
         }
+
+        AuthenticationState authState = await AuthState;
+        ClaimsPrincipal user = authState.User;
+        isLoggedIn = user.Identity != null;
+        if (!isLoggedIn) return;
+        userClaims = user.Claims;
+        name = user.Identity!.Name!;
     }
 
 }

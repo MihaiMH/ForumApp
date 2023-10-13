@@ -15,6 +15,9 @@ public class SubforumFileDao : ISubforumDao
 
     public Task<Subforum> CreateAsync(Subforum subforum)
     {
+        User? user = _context.Users?.FirstOrDefault(u => u.Username.Equals(subforum.Owner.Username));
+        subforum.Owner = user;
+        
         int subforumId = 1;
 
         if (_context.Subforums != null && _context.Subforums.Any())

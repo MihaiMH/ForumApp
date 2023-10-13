@@ -38,7 +38,7 @@ public class SubforumController : ControllerBase
     {
         try
         {
-            ICollection<Subforum> subforums = await _subforumLogic.GetSubForumsAsync();
+            ICollection<Subforum>? subforums = await _subforumLogic.GetSubForumsAsync();
             return Created($"/subforums/", subforums);
         }
         catch (Exception e)

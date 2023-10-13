@@ -17,7 +17,9 @@ public class PostLogic : IPostLogic
     public async Task<Post> CreatePostAsync(PostDto postDto)
     {
         ValidateData(postDto);
-        Post toCreate = new Post(postDto.Title, postDto.Subforum, postDto.Context, postDto.Author);
+        Subforum subforum = new Subforum("1", new User("", "", ""));
+        subforum.Id = postDto.SubforumId;
+        Post toCreate = new Post(postDto.Title, subforum, postDto.Context, new User(postDto.Author, "", ""));
         toCreate.Id = postDto.Id;
         Post created = await _postDao.CreatePostAsync(toCreate);
         return created;

@@ -14,6 +14,12 @@ public class PostFileDao : IPostDao
 
     public Task<Post> CreatePostAsync(Post post)
     {
+        Subforum? subforum = _context.Subforums?.FirstOrDefault(s => s.Id == post.Subforum.Id);
+        User? user = _context.Users?.FirstOrDefault(u => u.Username.Equals(post.Author.Username));
+
+        post.Subforum = subforum;
+        post.Author = user;
+
         int postId = 1;
 
         if (_context.Posts != null && _context.Posts.Any())
@@ -52,7 +58,7 @@ public class PostFileDao : IPostDao
 
     public Task<bool> DeletePostAsync(int postId)
     {
-        Post? post = _context.Posts?.FirstOrDefault(e => e.Id ==postId);
+        Post? post = _context.Posts?.FirstOrDefault(e => e.Id == postId);
         if (post != null)
         {
             _context.Posts?.Remove(post);
@@ -65,7 +71,7 @@ public class PostFileDao : IPostDao
 
     public Task<Post?> GetPostByIdAsync(int postId)
     {
-        Post? post = _context.Posts?.FirstOrDefault(e => e.Id ==postId);
+        Post? post = _context.Posts?.FirstOrDefault(e => e.Id == postId);
         return Task.FromResult(post);
     }
 

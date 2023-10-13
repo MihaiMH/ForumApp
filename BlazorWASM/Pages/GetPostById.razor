@@ -1,8 +1,10 @@
 @page "/subforums/{SubForumId:int}/posts/{PostId}"
 @using Domain
 @using HttpClients.ClientInterfaces
+@using System.Security.Claims
 @inject IPostService postService;
 @inject ICommentService commentService;
+@inject NavigationManager navMgr
 
 @if (!string.IsNullOrEmpty(msg))
 {
@@ -44,12 +46,19 @@ else
             @foreach (Comment comment in comments)
             {
                 <div class="comment-card">
-                    <label class="comment-card-author">@comment.User.Username</label>
+                    <NavLink class="nav-link" href="@($"users/{comment.User.Username}")" Match="NavLinkMatch.All">
+                        <label class="comment-card-author">@comment.User.Username</label>
+                    </NavLink>
                     <label class="comment-card-context">@comment.Context</label>
                 </div>
             }
         </div>
     }
+    <div class="comment-create">
+        <p>Write a comment:</p>
+        <textarea type="text" @bind="context"></textarea>
+        <button @onclick="CreateCommentAsync">Write a comment</button>
+    </div>
 }
 
 
@@ -66,6 +75,33 @@ else
     private IEnumerable<Comment>? comments;
     private string msg = "";
 
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = null!;
+
+    private string? name;
+    private IEnumerable<Claim>? userClaims;
+    private bool isLoggedIn;
+
+    private string? context;
+
+    private async Task CreateCommentAsync()
+    {
+        msg = "";
+        try
+        {
+            Comment comment = await commentService.CreateCommentAsync(name, context, Int32.Parse(PostId));
+            if (comment.Id != -1)
+            {
+                navMgr.NavigateTo($"subforums/{SubForumId}/posts/{PostId}", forceLoad: true);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
     protected override async Task OnInitializedAsync()
     {
         msg = "";
@@ -79,6 +115,13 @@ else
             Console.WriteLine(e);
             msg = e.Message;
         }
+        
+        AuthenticationState authState = await AuthState;
+        ClaimsPrincipal user = authState.User;
+        isLoggedIn = user.Identity != null;
+        if (!isLoggedIn) return;
+        userClaims = user.Claims;
+        name = user.Identity!.Name!;
     }
 
 }

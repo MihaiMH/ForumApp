@@ -1,0 +1,77 @@
+@page "/subforums/{SubForumId:int}/CreatePost"
+@using System.Security.Claims
+@using BlazorWasm.Services
+@using Domain
+@using HttpClients.ClientInterfaces
+@inject IAuthService authService
+@inject NavigationManager navMgr
+@inject IPostService postService;
+
+<AuthorizeView>
+    <Authorized>
+        <h3>Create a Post</h3>
+        @if (!string.IsNullOrEmpty(msg))
+        {
+            <div>
+                <span>@msg</span>
+            </div>
+        }
+
+        <p>Title: </p>
+        <input type="text" @bind="title"/>
+        <p>Context: </p>
+        <textarea type="text" @bind="this.context"></textarea>
+        <button @onclick="CreatePostAsync" disabled="@(string.IsNullOrEmpty(title) || string.IsNullOrEmpty(this.context))">Create the post</button>
+    </Authorized>
+    <NotAuthorized>
+        <p>You need to log in in order to create a post</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; } = null!;
+
+    [Parameter]
+    public int SubForumId { get; set; }
+
+    private string? name;
+    private IEnumerable<Claim>? userClaims;
+    private bool isLoggedIn;
+
+    private string? title;
+    private string? context;
+    private string msg = "";
+
+    private async Task CreatePostAsync()
+    {
+        msg = "";
+
+        try
+        {
+            Post post = await postService.CreatePostAsync(SubForumId, title, context, name);
+            navMgr.NavigateTo($"subforums/{SubForumId}/posts/{post.Id}");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+
+
+        AuthenticationState authState = await AuthState;
+        ClaimsPrincipal user = authState.User;
+        isLoggedIn = user.Identity != null;
+        if (!isLoggedIn) return;
+        userClaims = user.Claims;
+        name = user.Identity!.Name!;
+    }
+
+}

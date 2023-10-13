@@ -54,6 +54,17 @@ public class AuthController : ControllerBase
         JwtSecurityToken token = new JwtSecurityToken(header, payload);
     
         string serializedToken = new JwtSecurityTokenHandler().WriteToken(token);
+        
+        // HttpContext.Response.Cookies.Append("token", serializedToken, 
+        //     new CookieOptions
+        //     {
+        //         Expires = DateTime.UtcNow.AddMinutes(60),
+        //         HttpOnly = true,
+        //         Secure = true,
+        //         IsEssential = true,
+        //         SameSite = SameSiteMode.None
+        //     });
+        
         return serializedToken;
     }
     
