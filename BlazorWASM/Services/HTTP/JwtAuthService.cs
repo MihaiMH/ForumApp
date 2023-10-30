@@ -40,9 +40,10 @@ public class JwtAuthService : IAuthService
 
         OnAuthStateChanged.Invoke(principal);
     }
-
+    
     private static ClaimsPrincipal CreateClaimsPrincipal()
     {
+        
         if (string.IsNullOrEmpty(Jwt))
         {
             return new ClaimsPrincipal();

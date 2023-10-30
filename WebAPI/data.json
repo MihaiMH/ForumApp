@@ -14,6 +14,11 @@
       "Username": "Mihailus",
       "Email": "misha123@mail.com",
       "Password": "123456"
+    },
+    {
+      "Username": "mihais",
+      "Email": "mihaiafs@gmail.com",
+      "Password": "123456"
     }
   ],
   "Posts": [
@@ -73,6 +78,44 @@
         "Email": "crut173@gmail.com",
         "Password": "string"
       }
+    },
+    {
+      "Id": 4,
+      "Subforum": {
+        "Id": 4,
+        "Title": "subforum4",
+        "Owner": {
+          "Username": "mihai",
+          "Email": "crut173@gmail.com",
+          "Password": "string"
+        }
+      },
+      "Title": "dfhdgh",
+      "Context": "dhfhd",
+      "Author": {
+        "Username": "mihai",
+        "Email": "crut173@gmail.com",
+        "Password": "string"
+      }
+    },
+    {
+      "Id": 5,
+      "Subforum": {
+        "Id": 5,
+        "Title": "heey",
+        "Owner": {
+          "Username": "mihais",
+          "Email": "mihaiafs@gmail.com",
+          "Password": "123456"
+        }
+      },
+      "Title": "firstpost",
+      "Context": "123",
+      "Author": {
+        "Username": "mihais",
+        "Email": "mihaiafs@gmail.com",
+        "Password": "123456"
+      }
     }
   ],
   "Subforums": [
@@ -101,6 +144,24 @@
         "Username": "mihai",
         "Email": "crut173@gmail.com",
         "Password": "string"
+      }
+    },
+    {
+      "Id": 4,
+      "Title": "subforum4",
+      "Owner": {
+        "Username": "mihai",
+        "Email": "crut173@gmail.com",
+        "Password": "string"
+      }
+    },
+    {
+      "Id": 5,
+      "Title": "heey",
+      "Owner": {
+        "Username": "mihais",
+        "Email": "mihaiafs@gmail.com",
+        "Password": "123456"
       }
     }
   ],
@@ -238,6 +299,62 @@
         },
         "Title": "My new post in a new subforum",
         "Context": "Hiiii, this is my new post in this subforum",
+        "Author": {
+          "Username": "mihai",
+          "Email": "crut173@gmail.com",
+          "Password": "string"
+        }
+      }
+    },
+    {
+      "Id": 6,
+      "User": {
+        "Username": "mihai",
+        "Email": "crut173@gmail.com",
+        "Password": "string"
+      },
+      "Context": "d",
+      "Post": {
+        "Id": 2,
+        "Subforum": {
+          "Id": 2,
+          "Title": "subforumnr2",
+          "Owner": {
+            "Username": "mihai",
+            "Email": "crut173@gmail.com",
+            "Password": "string"
+          }
+        },
+        "Title": "My new post in a new subforum",
+        "Context": "Hiiii, this is my new post in this subforum",
+        "Author": {
+          "Username": "mihai",
+          "Email": "crut173@gmail.com",
+          "Password": "string"
+        }
+      }
+    },
+    {
+      "Id": 7,
+      "User": {
+        "Username": "mihais",
+        "Email": "mihaiafs@gmail.com",
+        "Password": "123456"
+      },
+      "Context": "asdasd",
+      "Post": {
+        "Id": 1,
+        "Subforum": {
+          "Id": 1,
+          "Title": "rrrrwosh",
+          "Owner": {
+            "Username": "mihai",
+            "Email": "crut173@gmail.com",
+            "Password": "string"
+          }
+        },
+        "Title": "My First Post Again",
+        "Context": "Hello world. This is my first post!",
         "Author": {
           "Username": "mihai",
           "Email": "crut173@gmail.com",

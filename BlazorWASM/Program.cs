@@ -24,6 +24,9 @@ builder.Services.AddScoped(
             BaseAddress = new Uri("https://localhost:7133") 
         }
 );
+
+
+
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();
 AuthorizationPolicies.AddPolicies(builder.Services);
 
