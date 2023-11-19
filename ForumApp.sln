@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClients", "HttpClients\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoLink", "VideoLink\VideoLink.csproj", "{025518DF-7386-4101-983B-A99374FF99A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfcDataAccess", "EfcDataAccess\EfcDataAccess.csproj", "{9BC389C1-8D51-4714-8AC0-EDF4AFFC2921}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{025518DF-7386-4101-983B-A99374FF99A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{025518DF-7386-4101-983B-A99374FF99A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{025518DF-7386-4101-983B-A99374FF99A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BC389C1-8D51-4714-8AC0-EDF4AFFC2921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BC389C1-8D51-4714-8AC0-EDF4AFFC2921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BC389C1-8D51-4714-8AC0-EDF4AFFC2921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BC389C1-8D51-4714-8AC0-EDF4AFFC2921}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

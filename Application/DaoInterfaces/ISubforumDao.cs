@@ -7,5 +7,7 @@ public interface ISubforumDao
 {
     Task<Subforum> CreateAsync(Subforum subforumDto);
     Task<Subforum?> GetByTitleAsync(string title);
-    Task<ICollection<Subforum>?> GetSubForums();
+    Task<IEnumerable<Subforum>?> GetSubForums();
+
+    Task<Subforum?> GetByIdAsync(int id);
 }

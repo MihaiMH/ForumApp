@@ -1,9 +1,9 @@
-using Application.DaoInterfaces;
+
 using Domain;
 
 namespace FileData.DAOs;
 
-public class PostFileDao : IPostDao
+public class PostFileDao 
 {
     private readonly FileContext _context;
 
@@ -53,7 +53,10 @@ public class PostFileDao : IPostDao
             return Task.FromResult(post);
         }
 
-        return Task.FromResult(new Post("NOT FOUND", null, "NOT FOUND", null));
+        return Task.FromResult(new Post
+        {
+            Context = "NOT FOUND",
+        });
     }
 
     public Task<bool> DeletePostAsync(int postId)

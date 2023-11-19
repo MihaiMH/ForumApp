@@ -2,17 +2,10 @@ namespace Domain.DTOs;
 
 public class PostUpdateDto
 {
-    public int Id { get; }
-    public string Title { get; }
-    public string Context { get; }
+    public Post Post { get; set; }
 
-    public int SubForumId { get; set; }
-
-    public PostUpdateDto(int id, string title, string context, int subForumId)
+    public PostUpdateDto(Post post)
     {
-        Id = id;
-        Title = title;
-        Context = context;
-        SubForumId = subForumId;
+        this.Post = post;
     }
 }

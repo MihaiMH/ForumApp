@@ -1,10 +1,9 @@
 using System.Collections;
-using Application.DaoInterfaces;
 using Domain;
 
 namespace FileData.DAOs;
 
-public class UserFileDao : IUserDao
+public class UserFileDao 
 {
     private readonly FileContext _context;
 

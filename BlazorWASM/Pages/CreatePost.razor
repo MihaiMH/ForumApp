@@ -50,7 +50,7 @@
 
         try
         {
-            Post post = await postService.CreatePostAsync(SubForumId, title, context, name);
+            Post post = await postService.CreatePostAsync(SubForumId, title, context, new User(){Username = name});
             navMgr.NavigateTo($"subforums/{SubForumId}/posts/{post.Id}");
         }
         catch (Exception e)

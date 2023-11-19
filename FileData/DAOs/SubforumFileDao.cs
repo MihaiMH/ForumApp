@@ -1,10 +1,9 @@
-using Application.DaoInterfaces;
 using Domain;
 using Domain.DTOs;
 
 namespace FileData.DAOs;
 
-public class SubforumFileDao : ISubforumDao
+public class SubforumFileDao 
 {
     private readonly FileContext _context;
 

@@ -88,7 +88,7 @@ public class PostController : ControllerBase
         try
         {
             Post post = await postLogic.UpdatePostAsync(dto);
-            return Created($"/subforums/{dto.SubForumId}/posts/{dto.Id}", post);
+            return Created($"/subforums/{dto.Post.Subforum.Id}/posts/{dto.Post.Id}", post);
         }
         catch (Exception e)
         {

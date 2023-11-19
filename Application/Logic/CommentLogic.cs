@@ -8,19 +8,27 @@ namespace Application.Logic;
 public class CommentLogic : ICommentLogic
 {
     private readonly ICommentDao _commentDao;
+    private readonly IUserDao userDao;
+    private readonly IPostDao postDao;
 
-    public CommentLogic(ICommentDao commentDao)
+    public CommentLogic(ICommentDao commentDao, IUserDao userDao, IPostDao postDao)
     {
         _commentDao = commentDao;
+        this.userDao = userDao;
+        this.postDao = postDao;
     }
-    
+
     public async Task<Comment> CreateCommentAsync(CommentDto commentDto)
     {
         ValidateData(commentDto);
-        User user = new User(commentDto.User, "", "");
-        Post post = new Post("", new Subforum("", new User("", "", "")), "", new User("", "", ""));
-        post.Id = commentDto.PostId;
-        Comment toCreate = new Comment(user, commentDto.Context, post);
+        User? user = await userDao.GetByUsernameAsync(commentDto.User);
+        Post? post = await postDao.GetPostByIdAsync(commentDto.PostId);
+        Comment toCreate = new Comment
+        {
+            User = user,
+            Context = commentDto.Context,
+            Post = post
+        };
         Comment created = await _commentDao.CreateCommentAsync(toCreate);
         return created;
     }
@@ -33,12 +41,25 @@ public class CommentLogic : ICommentLogic
     public async Task<Comment> UpdateComment(UpdateCommentDto updateCommentDto)
     {
         ValidateData(updateCommentDto);
-        return  await _commentDao.UpdateComment(updateCommentDto.OldCommentId, updateCommentDto.NewContext);
+        Comment? comment = await _commentDao.GetCommentById(updateCommentDto.OldCommentId);
+        if (comment == null)
+        {
+            throw new Exception("Comment not found");
+        }
+
+        comment.Context = updateCommentDto.NewContext;
+        return await _commentDao.UpdateComment(comment);
     }
 
     public async Task<bool> DeleteComment(int commentId)
     {
-        return await _commentDao.DeleteComment(commentId);
+        Comment? comment = await _commentDao.GetCommentById(commentId);
+        if (comment == null)
+        {
+            throw new Exception("Comment not found");
+        }
+
+        return await _commentDao.DeleteComment(comment);
     }
 
     public static void ValidateData(CommentDto commentDto)
@@ -55,7 +76,7 @@ public class CommentLogic : ICommentLogic
             throw new Exception("Comment can be maximum 100 characters length");
         }
     }
-    
+
     public static void ValidateData(UpdateCommentDto commentDto)
     {
         string context = commentDto.NewContext;

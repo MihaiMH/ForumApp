@@ -6,5 +6,5 @@ namespace Application.LogicInterfaces;
 public interface ISubforumLogic
 {
     Task<Subforum> CreateAsync(SubforumDto subforumDto);
-    Task<ICollection<Subforum>?> GetSubForumsAsync();
+    Task<IEnumerable<Subforum>?> GetSubForumsAsync();
 }

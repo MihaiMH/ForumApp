@@ -8,19 +8,31 @@ namespace Application.Logic;
 public class PostLogic : IPostLogic
 {
     private readonly IPostDao _postDao;
+    private readonly IUserDao userDao;
+    private readonly ISubforumDao subforumDao;
 
-    public PostLogic(IPostDao postDao)
+    public PostLogic(IPostDao postDao, IUserDao userDao, ISubforumDao subforumDao)
     {
         _postDao = postDao;
+        this.userDao = userDao;
+        this.subforumDao = subforumDao;
     }
 
     public async Task<Post> CreatePostAsync(PostDto postDto)
     {
         ValidateData(postDto);
-        Subforum subforum = new Subforum("1", new User("", "", ""));
-        subforum.Id = postDto.SubforumId;
-        Post toCreate = new Post(postDto.Title, subforum, postDto.Context, new User(postDto.Author, "", ""));
-        toCreate.Id = postDto.Id;
+        Subforum? subforum = await subforumDao.GetByIdAsync(postDto.SubforumId);
+        Console.WriteLine("TEST1  " + postDto.Author.Username);
+        User? user = await userDao.GetByUsernameAsync(postDto.Author.Username);
+        Console.WriteLine(user.Username);
+        Post toCreate = new Post
+        {
+            Id = 0,
+            Title = postDto.Title,
+            Subforum = subforum,
+            Context = postDto.Context,
+            Author = user
+        };
         Post created = await _postDao.CreatePostAsync(toCreate);
         return created;
     }
@@ -33,12 +45,13 @@ public class PostLogic : IPostLogic
     public async Task<Post> UpdatePostAsync(PostUpdateDto postUpdateDto)
     {
         ValidateData(postUpdateDto);
-        return await _postDao.UpdatePostAsync(postUpdateDto.Id, postUpdateDto.Title, postUpdateDto.Context);
+        return await _postDao.UpdatePostAsync(postUpdateDto.Post);
     }
 
     public async Task<bool> DeletePostAsync(int postId)
     {
-        return await _postDao.DeletePostAsync(postId);
+        Post? postToBeDeleted = await _postDao.GetPostByIdAsync(postId);
+        return await _postDao.DeletePostAsync(postToBeDeleted);
     }
 
     public async Task<Post?> GetPostByIdAsync(int postId)
@@ -53,8 +66,8 @@ public class PostLogic : IPostLogic
 
     public static void ValidateData(PostUpdateDto postDto)
     {
-        string title = postDto.Title;
-        string context = postDto.Context;
+        string title = postDto.Post.Title;
+        string context = postDto.Post.Context;
 
 
         if (string.IsNullOrWhiteSpace(title) || string.IsNullOrWhiteSpace(context))

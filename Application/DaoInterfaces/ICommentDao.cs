@@ -9,6 +9,6 @@ public interface ICommentDao
 
     public Task<Comment?> GetCommentById(int commentId);
 
-    public Task<Comment> UpdateComment(int oldCommentId, String newContext);
-    public Task<bool> DeleteComment(int commentId);
+    public Task<Comment> UpdateComment(Comment comment);
+    public Task<bool> DeleteComment(Comment comment);
 }

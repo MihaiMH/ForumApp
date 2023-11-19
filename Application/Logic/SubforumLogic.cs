@@ -8,10 +8,11 @@ namespace Application.Logic;
 public class SubforumLogic : ISubforumLogic
 {
     private readonly ISubforumDao _subforumDao;
-
-    public SubforumLogic(ISubforumDao subforumDao)
+    private readonly IUserDao userDao;
+    public SubforumLogic(ISubforumDao subforumDao, IUserDao userDao)
     {
         _subforumDao = subforumDao;
+        this.userDao = userDao;
     }
 
     public async Task<Subforum> CreateAsync(SubforumDto subforumDto)
@@ -24,15 +25,20 @@ public class SubforumLogic : ISubforumLogic
 
         ValidateData(subforumDto);
 
-        User user = new User(subforumDto.Owner, "", "");
-        
-        Subforum toCreate = new Subforum(subforumDto.Title, user);
+        User? user = await userDao.GetByUsernameAsync(subforumDto.Owner);
+        Console.WriteLine(user.Username);
+        Subforum toCreate = new Subforum
+        {
+            Id = 0,
+            Title = subforumDto.Title,
+            Owner = user
+        };
 
         Subforum created = await _subforumDao.CreateAsync(toCreate);
         return created;
     }
 
-    public async Task<ICollection<Subforum>?> GetSubForumsAsync()
+    public async Task<IEnumerable<Subforum>?> GetSubForumsAsync()
     {
         return await _subforumDao.GetSubForums();
     }

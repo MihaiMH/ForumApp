@@ -34,11 +34,11 @@ public class SubforumController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<ActionResult<ICollection<Subforum>>> GetSubForumsAsync()
+    public async Task<ActionResult<IEnumerable<Subforum>>> GetSubForumsAsync()
     {
         try
         {
-            ICollection<Subforum>? subforums = await _subforumLogic.GetSubForumsAsync();
+            IEnumerable<Subforum>? subforums = await _subforumLogic.GetSubForumsAsync();
             return Created($"/subforums/", subforums);
         }
         catch (Exception e)

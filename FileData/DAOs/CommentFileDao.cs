@@ -1,9 +1,8 @@
-using Application.DaoInterfaces;
 using Domain;
 
 namespace FileData.DAOs;
 
-public class CommentFileDao : ICommentDao
+public class CommentFileDao 
 {
     private readonly FileContext _context;
 
@@ -19,7 +18,7 @@ public class CommentFileDao : ICommentDao
 
         comment.User = user;
         comment.Post = post;
-        
+
         int commentId = 1;
 
         if (_context.Comments != null && _context.Comments.Any())
@@ -60,7 +59,10 @@ public class CommentFileDao : ICommentDao
             }
         }
 
-        return Task.FromResult(new Comment(null,"NOT FOUND", null));
+        return Task.FromResult(new Comment
+        {
+            Context = "NOT FOUND"
+        });
     }
 
     public Task<bool> DeleteComment(int commentId)

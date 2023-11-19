@@ -6,8 +6,8 @@ public interface IPostDao
 {
     Task<Post> CreatePostAsync(Post post);
     Task<IEnumerable<Post>?> GetPostsBySubForumAsync(int subForumId);
-    Task<Post> UpdatePostAsync(int postId, string title, string context);
-    Task<bool> DeletePostAsync(int postId);
+    Task<Post> UpdatePostAsync(Post post);
+    Task<bool> DeletePostAsync(Post post);
     Task<Post?> GetPostByIdAsync(int postId);
     Task<IEnumerable<Post>?> GetPostsByUser(string userName);
 }

@@ -85,9 +85,9 @@ public class PostHttpClient : IPostService
         return posts;
     }
 
-    public async Task<Post> CreatePostAsync(int subforumId, string title, string context, string userName)
+    public async Task<Post> CreatePostAsync(int subforumId, string title, string context, User user)
     {
-        PostDto postDto = new PostDto(-1, subforumId, title, context, userName);
+        PostDto postDto = new PostDto(-1, subforumId, title, context, user);
         HttpResponseMessage response = await client.PostAsJsonAsync("/Post", postDto);
         string result = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)

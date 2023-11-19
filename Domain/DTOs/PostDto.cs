@@ -6,9 +6,9 @@ public class PostDto
     public int SubforumId { get; }
     public string Title { get; }
     public string Context { get; }
-    public string Author { get; }
+    public User Author { get; }
 
-    public PostDto(int id, int subforumId, string title, string context, string author)
+    public PostDto(int id, int subforumId, string title, string context, User author)
     {
         Id = id;
         SubforumId = subforumId;
